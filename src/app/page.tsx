@@ -1,5 +1,9 @@
 import { Flex, Button, Stack, Link, Image, Input, Text, Heading } from '@chakra-ui/react';
-import Head from 'next/head';
+import { Metadata } from 'next'
+ 
+export const metadata: Metadata = {
+  title: 'UNIVESP',
+}
 
 export default function Home() {
   return (
@@ -11,10 +15,6 @@ export default function Home() {
       justifyContent="center"
       flexDirection="column"
     >
-      <Head>
-        <title>Itafos-Desk</title>
-        <link rel="sortcut icon" href="https://github.com/matthcarter777/AssetManagement-frontend/blob/main/src/assets/logo2.png?raw=true" type="image/png" />;
-      </Head>
       <Flex>
         <Heading mb='56px'>Controle de ponto - UNIVESP</Heading>
       </Flex>
