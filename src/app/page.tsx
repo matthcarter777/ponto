@@ -1,95 +1,70 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import { Flex, Button, Stack, Link, Image, Input, Text, Heading } from '@chakra-ui/react';
+import Head from 'next/head';
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
+    <>
+    <Flex
+      w="100vw"
+      h="100vh"
+      alignItems="center"
+      justifyContent="center"
+      flexDirection="column"
+    >
+      <Head>
+        <title>Itafos-Desk</title>
+        <link rel="sortcut icon" href="https://github.com/matthcarter777/AssetManagement-frontend/blob/main/src/assets/logo2.png?raw=true" type="image/png" />;
+      </Head>
+      <Flex>
+        <Heading mb='56px'>Controle de ponto - UNIVESP</Heading>
+      </Flex>
+      <Flex
+        as="form"
+        w="100%"
+        maxWidth="360"
+        bg="gray.400"
+        p="8"
+        borderRadius="8"
+        flexDirection="column"
+      >
+        <Stack spacing="4">
+          <Flex flexDirection="column">
+            <Text>CPF</Text>
+            <Input
+              name="email"
+              type="email"
+              placeholder='123.123.123-00'
+              color='white'
+              min="14"
+              max="14"
+              required
             />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
+          </Flex>
+            <Flex flexDirection="column">
+              <Text>Senha</Text>
+            <Input
+              name="password"
+              type="password"
+              required
+            />
+          </Flex>
+        </Stack>
+        <Button 
+          type="submit" 
+          marginTop="6"
+          colorScheme="green"
+          size="lg"
         >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+          Entrar
+        </Button>
+          <Link
+            marginTop="20px"
+            href="forgot_password"
+          >
+            Esqueceu a senha?
+          </Link>
+      </Flex>
+    </Flex>
+    </>
   );
 }
