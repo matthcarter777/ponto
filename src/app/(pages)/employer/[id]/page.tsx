@@ -1,4 +1,5 @@
 'use client'
+import React, { useState, useEffect } from 'react';
 import { Header } from "@/app/components/Header";
 import { 
   Flex, 
@@ -13,20 +14,20 @@ import {
   Tbody,
   Td,
   Tfoot,
+  useToast
 } from "@chakra-ui/react";
-import React, { useState, useEffect } from 'react';
 
 export default function Employer() {
   const [currentTime, setCurrentTime] = useState(new Date());
-
-  const currentDate = new Date();
-
-  const array = [
+  const [btn1Data, setBtn1Data] = useState(false)
+  const [data, setData] = useState([
     {id: 1, date: '10/04/2024', time1: '07:31', time2: '11:30', time3: '12:29', time4: '17:32'},
     {id: 2, date: '11/04/2024', time1: '07:31', time2: '11:30', time3: '12:29', time4: '17:32'},
     {id: 3, date: '12/04/2024', time1: '07:31', time2: '11:30', time3: '12:29', time4: '17:32'},
     {id: 4, date: '13/04/2024', time1: '07:31', time2: '11:30', time3: '12:29', time4: '17:32'},
-  ]
+  ]);
+
+  const toast = useToast();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -36,6 +37,39 @@ export default function Employer() {
     return () => clearInterval(interval);
   }, []);
 
+  const btn1 = () => {
+    if (data.length > 4) {
+      setBtn1Data(true)
+      toast({
+        title: 'Alerta',
+        description: "Ponto ja batido.",
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      })
+      return
+    }
+
+    const newData = [...data, {
+      id: data.length + 1, 
+      date: currentTime.toLocaleDateString(), 
+      time1: currentTime.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }), 
+      time2: '00:00', 
+      time3: '00:00', 
+      time4: '00:00'
+    }];
+
+    setData(newData);
+    setBtn1Data(true)
+    toast({
+      title: 'Alerta',
+      description: "Ponto batido.",
+      status: 'success',
+      duration: 9000,
+      isClosable: true,
+    })
+    return
+  }
 
   return (
     <>
@@ -49,12 +83,12 @@ export default function Employer() {
         direction="column"
         alignItems="center"  
       >
-        <Text mb="3rem">{currentDate.toLocaleDateString()},{currentTime.toLocaleTimeString()}</Text>
+        <Text mb="3rem">{currentTime.toLocaleDateString()},{currentTime.toLocaleTimeString()}</Text>
         <SimpleGrid columns={4} spacing={10} mb="4rem">
-          <Button w='5rem' mr='3rem' fontSize="11px" >Entrada</Button>
-          <Button w='5rem' mr='3rem' fontSize="11px" >Intervalo</Button>
-          <Button w='5rem' mr='3rem' fontSize="11px" >S. Intervalo</Button>
-          <Button w='5rem' mr='3rem' fontSize="11px" >Saida</Button>
+          <Button w='5rem' mr='3rem' fontSize="11px" bg="green" onClick={btn1} disabled={btn1Data}>Entrada</Button>
+          <Button w='5rem' mr='3rem' fontSize="11px" bg="green">Intervalo</Button>
+          <Button w='5rem' mr='3rem' fontSize="11px" bg="green">S. Intervalo</Button>
+          <Button w='5rem' mr='3rem' fontSize="11px" bg="green">Saida</Button>
         </SimpleGrid>
 
         <TableContainer>
@@ -69,17 +103,15 @@ export default function Employer() {
               </Tr>
             </Thead>
             <Tbody>
-              { array.map((data) => {
-                return (
-                  <Tr key={data.id}>
-                  <Td>{data.date}</Td>
-                  <Td>{data.time1}</Td>
-                  <Td>{data.time2}</Td>
-                  <Td>{data.time3}</Td>
-                  <Td>{data.time4}</Td>
+              {data.map((row) => (
+                <Tr key={row.id}>
+                  <Td>{row.date}</Td>
+                  <Td>{row.time1}</Td>
+                  <Td>{row.time2}</Td>
+                  <Td>{row.time3}</Td>
+                  <Td>{row.time4}</Td>
                 </Tr>
-                )
-              })}
+              ))}
             </Tbody>
             <Tfoot>
               <Tr>
