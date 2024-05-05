@@ -1,11 +1,19 @@
-import { Flex, Button, Stack, Link, Image, Input, Text, Heading } from '@chakra-ui/react';
-import { Metadata } from 'next'
- 
-export const metadata: Metadata = {
-  title: 'UNIVESP',
-}
+'use client'
+import { Flex, Button, Stack, Link, Input, Text, Heading } from '@chakra-ui/react';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation'; 
 
 export default function Home() {
+  const [cpf, setCpf] = useState("");
+  const [password, setPassword] = useState("");
+  const router = useRouter();
+
+  const handleLogin = () => {
+    if ( cpf === '123.123.123-01' && password === '123456') {
+      router.push('/employer/1');
+    }
+  };
+
   return (
     <>
     <Flex
@@ -31,12 +39,13 @@ export default function Home() {
           <Flex flexDirection="column">
             <Text>CPF</Text>
             <Input
-              name="email"
-              type="email"
+              name="cpf"
               placeholder='123.123.123-00'
               color='white'
               min="14"
               max="14"
+              value={cpf}
+              onChange={(e) => setCpf(e.target.value)}
               required
             />
           </Flex>
@@ -45,15 +54,17 @@ export default function Home() {
             <Input
               name="password"
               type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
           </Flex>
         </Stack>
         <Button 
-          type="submit" 
           marginTop="6"
           colorScheme="green"
           size="lg"
+          onClick={() => handleLogin()}
         >
           Entrar
         </Button>
