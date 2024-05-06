@@ -12,6 +12,9 @@ export default function Home() {
     if ( cpf === '123.123.123-01' && password === '123456') {
       router.push('/employer/1');
     }
+    if ( cpf === '123.123.123-02' && password === '123456') {
+      router.push('/admin/1');
+    }
   };
 
   return (
