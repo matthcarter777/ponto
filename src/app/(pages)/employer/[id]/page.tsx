@@ -20,6 +20,9 @@ import {
 export default function Employer() {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [btn1Data, setBtn1Data] = useState(false)
+  const [btn2Data, setBtn2Data] = useState(false)
+  const [btn3Data, setBtn3Data] = useState(false)
+  const [btn4Data, setBtn4Data] = useState(false)
   const [data, setData] = useState([
     {id: 1, date: '10/04/2024', time1: '07:31', time2: '11:30', time3: '12:29', time4: '17:32'},
     {id: 2, date: '11/04/2024', time1: '07:31', time2: '11:30', time3: '12:29', time4: '17:32'},
@@ -38,8 +41,7 @@ export default function Employer() {
   }, []);
 
   const btn1 = () => {
-    if (data.length > 4) {
-      setBtn1Data(true)
+    if (data.length > 4) { 
       toast({
         title: 'Alerta',
         description: "Ponto ja batido.",
@@ -49,6 +51,7 @@ export default function Employer() {
       })
       return
     }
+    setBtn1Data(true)
 
     const newData = [...data, {
       id: data.length + 1, 
@@ -71,6 +74,105 @@ export default function Employer() {
     return
   }
 
+  const btn2 = () => {
+    if (btn1Data === false) {
+      toast({
+        title: 'Alerta',
+        description: "Necessário bater o ponto de entrada primeiro.",
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      })
+      return
+    }
+  
+    const newData = data.map((item) => {
+      if (item.id === data.length) {
+        return {
+          ...item,
+          time2: currentTime.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
+        };
+      }
+      return item;
+    });
+  
+    setData(newData);
+    setBtn2Data(true);
+    toast({
+      title: 'Alerta',
+      description: "Ponto de intervalo batido.",
+      status: 'success',
+      duration: 9000,
+      isClosable: true,
+    });
+  }
+
+  const btn3 = () => {
+    if (btn1Data === false) {
+      toast({
+        title: 'Alerta',
+        description: "Necessário bater o ponto intervalo primeiro.",
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      })
+      return
+    }
+  
+    const newData = data.map((item) => {
+      if (item.id === data.length) {
+        return {
+          ...item,
+          time3: currentTime.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
+        };
+      }
+      return item;
+    });
+  
+    setData(newData);
+    setBtn2Data(true);
+    toast({
+      title: 'Alerta',
+      description: "Ponto de saida intervalo batido.",
+      status: 'success',
+      duration: 9000,
+      isClosable: true,
+    });
+  }
+
+  const btn4 = () => {
+    if (btn1Data === false) {
+      toast({
+        title: 'Alerta',
+        description: "Necessário bater o ponto de saida intervalo.",
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      })
+      return
+    }
+  
+    const newData = data.map((item) => {
+      if (item.id === data.length) {
+        return {
+          ...item,
+          time4: currentTime.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
+        };
+      }
+      return item;
+    });
+  
+    setData(newData);
+    setBtn2Data(true);
+    toast({
+      title: 'Alerta',
+      description: "Ponto de saida batido.",
+      status: 'success',
+      duration: 9000,
+      isClosable: true,
+    });
+  }
+
   return (
     <>
       <Header />
@@ -86,9 +188,9 @@ export default function Employer() {
         <Text mb="3rem">{currentTime.toLocaleDateString()},{currentTime.toLocaleTimeString()}</Text>
         <SimpleGrid columns={4} spacing={10} mb="4rem">
           <Button w='5rem' mr='3rem' fontSize="11px" bg="green" onClick={btn1} disabled={btn1Data}>Entrada</Button>
-          <Button w='5rem' mr='3rem' fontSize="11px" bg="green">Intervalo</Button>
-          <Button w='5rem' mr='3rem' fontSize="11px" bg="green">S. Intervalo</Button>
-          <Button w='5rem' mr='3rem' fontSize="11px" bg="green">Saida</Button>
+          <Button w='5rem' mr='3rem' fontSize="11px" bg="green" onClick={btn2} disabled={btn2Data}>Intervalo</Button>
+          <Button w='5rem' mr='3rem' fontSize="11px" bg="green" onClick={btn3} disabled={btn3Data}>S. Intervalo</Button>
+          <Button w='5rem' mr='3rem' fontSize="11px" bg="green" onClick={btn4} disabled={btn4Data}>Saida</Button>
         </SimpleGrid>
 
         <TableContainer>
