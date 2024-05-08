@@ -29,6 +29,18 @@ export default function Employer() {
     {id: 8, name: 'Renato Regio', register: '1002', date: '13/04/2024', time1: '07:31', time2: '11:30', time3: '12:29', time4: '17:32'},
   ]);
 
+  const toast = useToast();
+
+  const download = () => {
+    toast({
+      title: 'Download',
+      description: "Download realizado.",
+      status: 'success',
+      duration: 9000,
+      isClosable: true,
+    })
+  }
+
   return (
     <>
       <Header />
@@ -42,7 +54,7 @@ export default function Employer() {
         alignItems="center"  
       >
         <Text mb="3rem">Controle de Pontos</Text>
-
+        <Button bg="orange" mb="30px" onClick={download}>Baixar Espelho de Ponto</Button>
 
         <TableContainer>
           <Table variant='simple'>
